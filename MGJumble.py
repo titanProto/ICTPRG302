@@ -1,11 +1,10 @@
-from random import shuffle
-from art import text2art
 import random
+from art import text2art
 print(text2art("Jumble!"))
 
 def scramble(input):
     word = list(input)
-    shuffle(word)
+    random.shuffle(word)
     output = ''.join(word)
     return output
 
@@ -22,12 +21,15 @@ def game():
         else:
             print("\nNot quite!, try again\n")
 
-wordFile = open("sgb-words.txt", "r")
-wordList = list(wordFile.read().split("\n"))
+try:
+    wordFile = open("sgb-words.txt", "r")
+    wordList = list(wordFile.read().split("\n"))
+except:
+    wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
 playGame = True
 while playGame == True:
     if input("Play game? (y/n) ").lower() == "y":
         game()
     else:
-        print("goodbye!")
+        print(text2art("goodbye!"))
         playGame = False
