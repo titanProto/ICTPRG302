@@ -11,7 +11,7 @@ def scramble(input):
 def game():
     wordIndex = random.randint(0,(len(wordList)-1))
     wordToGuess = wordList[wordIndex]
-    print(wordToGuess)
+    # print(wordToGuess)
     correct = False
     scrambledWord = scramble(wordToGuess)
     while correct == False:
