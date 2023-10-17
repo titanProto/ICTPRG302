@@ -9,27 +9,31 @@ def scramble(input):
     return output
 
 def game():
+    global score
     wordIndex = random.randint(0,(len(wordList)-1))
     wordToGuess = wordList[wordIndex]
-    # print(wordToGuess)
     correct = False
     scrambledWord = scramble(wordToGuess)
     while correct == False:
         if input(f"\nThe jumbled word is - {scrambledWord}\n  Guess - ") == wordToGuess:
             print("\nCorrect!")
+            score += 5
             correct = True
         else:
             print("\nNot quite!, try again\n")
 
-try:
-    wordFile = open("sgb-words.txt", "r")
-    wordList = list(wordFile.read().split("\n"))
-except:
-    wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
+# try:
+#     wordFile = open("sgb-words.txt", "r")
+#     wordList = list(wordFile.read().split("\n"))
+# except:
+#     wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
+wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
 playGame = True
+score = 0
 while playGame == True:
     if input("Play game? (y/n) ").lower() == "y":
         game()
+        print(f'Score: {score}')
     else:
-        print(text2art("goodbye!"))
+        print(f'\n\nFinal score: {score}\n{text2art("goodbye!")}')
         playGame = False
