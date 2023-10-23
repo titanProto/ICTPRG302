@@ -12,22 +12,35 @@ def game():
     global score
     wordIndex = random.randint(0,(len(wordList)-1))
     wordToGuess = wordList[wordIndex]
-    correct = False
+    wordFixer = list(wordToGuess) # wordFixer, splits the word into a list here
+    try: # for some reason, sometimes wordFixer breaks when there are no spaces to remove, the try and except was a quick way to fix this
+        wordFixer.remove(" ") # wordFixer removes spaces from the list
+    except:
+        pass
+    wordToGuess = ''.join(wordFixer) # finally, wordFixer is joind to the word to guess
     scrambledWord = scramble(wordToGuess)
+    correct = False
     while correct == False:
-        if input(f"\nThe jumbled word is - {scrambledWord}\n  Guess - ") == wordToGuess:
+        playerInput = input(f"\nThe jumbled word is - {scrambledWord}\n  Guess - ")
+        if playerInput.lower() == wordToGuess:
             print("\nCorrect!")
             score += 5
             correct = True
+        elif playerInput == "#cheat":
+            print(wordToGuess)
         else:
             print("\nNot quite!, try again\n")
 
-# try:
-#     wordFile = open("sgb-words.txt", "r")
-#     wordList = list(wordFile.read().split("\n"))
-# except:
-#     wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
+def chooseWordFile(input):
+    global wordList
+    try:
+        wordFile = open(input, "r")
+        wordList = list(wordFile.read().split("\n"))
+    except:
+        print("file not found, using default word list")
+
 wordList = ["apple", "monkey", "trains", "pig", "dogs", "cats"]
+chooseWordFile(input("Which word file? - "))
 playGame = True
 score = 0
 while playGame == True:
